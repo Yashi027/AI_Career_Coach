@@ -24,7 +24,7 @@ class GeminiService:
         self.client = genai.Client(api_key=Config.GEMINI_API_KEY)
         
 
-    def generate_response(self, prompt: str, config: Optional[Any]) -> Any:
+    def generate_response(self, prompt: str, config: Optional[Any] = None) -> Any:
         """
         Generate a response from the Gemini API based on the provided prompt.
 
@@ -36,9 +36,9 @@ class GeminiService:
         """
 
         try:
-            response = self.model.generate_content(
+            response = self.client.models.generate_content(
                 model = Config.MODEL_NAME,
-                prompts = prompt,
+                contents = prompt,
                 config = config
                 )
             return response

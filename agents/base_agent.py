@@ -11,12 +11,13 @@ Responsibilities:
 """
 
 from abc import ABC, abstractmethod
+from typing import Any
 from services.gemini_service import GeminiService
 from memory.shared_memory import SharedMemory
 from models.agent_response import AgentResponse
 
 
-class BaseAgent :
+class BaseAgent(ABC) :
     """
     Abstract base class for all AI agents
     """
@@ -50,18 +51,17 @@ class BaseAgent :
         """
         pass
 
-    @abstractmethod
-    def execute(self) -> str:
+    def execute(self) -> Any:
         """
         Execute the agent's main logic
         Build the prompt, send it to Gemini, store the response in shared memory, and return the response
         :return: The result of the execution
         """
         prompt = self.build_prompt()
-        response = self.ask_gemini(prompt)
+        response = self.gemini_service.generate_response(prompt)
         agentResponse = AgentResponse(
             agent_name=self.get_agent_name(),
-            output = gemini_response.text
+            output = response.text
         )
         self.memory.add(self.get_memory_key(), agentResponse)
         return agentResponse
