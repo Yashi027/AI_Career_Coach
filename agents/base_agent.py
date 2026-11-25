@@ -15,16 +15,18 @@ from typing import Any
 from services.gemini_service import GeminiService
 from memory.shared_memory import SharedMemory
 from models.agent_response import AgentResponse
+from memory.conversation_memory import ConversationMemory
 
 
 class BaseAgent(ABC) :
     """
     Abstract base class for all AI agents
     """
-    def __init__(self, memory: SharedMemory, gemini_service: GeminiService):
+    def __init__(self, memory: SharedMemory, gemini_service: GeminiService, conversation_memory: ConversationMemory):
         super().__init__()
         self.memory = memory
         self.gemini_service = gemini_service
+        self.conversation_memory = conversation_memory
 
     @abstractmethod
     def get_agent_name(self) -> str:
@@ -57,12 +59,22 @@ class BaseAgent(ABC) :
         Build the prompt, send it to Gemini, store the response in shared memory, and return the response
         :return: The result of the execution
         """
-        prompt = self.build_prompt()
+        agent_prompt = self.build_prompt()
+        conversation = self.conversation_memory.get_context()
+
+        prompt = f"""
+        Conversation History:
+        -------------------------
+        {conversation}
+        
+        Current Task: {agent_prompt}
+        """
         response = self.gemini_service.generate_response(prompt)
         agentResponse = AgentResponse(
             agent_name=self.get_agent_name(),
             output = response.text
         )
+        self.conversation_memory.add_response(response.text)
         self.memory.add(self.get_memory_key(), agentResponse)
         return agentResponse
 
