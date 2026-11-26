@@ -16,17 +16,19 @@ from services.gemini_service import GeminiService
 from memory.shared_memory import SharedMemory
 from models.agent_response import AgentResponse
 from memory.conversation_memory import ConversationMemory
+from knowledge.knowledge_base import KnowledgeBase
 
 
 class BaseAgent(ABC) :
     """
     Abstract base class for all AI agents
     """
-    def __init__(self, memory: SharedMemory, gemini_service: GeminiService, conversation_memory: ConversationMemory):
+    def __init__(self, memory: SharedMemory, gemini_service: GeminiService, conversation_memory: ConversationMemory, knowledge_base: KnowledgeBase):
         super().__init__()
         self.memory = memory
         self.gemini_service = gemini_service
         self.conversation_memory = conversation_memory
+        self.knowledge_base = knowledge_base
 
     @abstractmethod
     def get_agent_name(self) -> str:
@@ -61,11 +63,16 @@ class BaseAgent(ABC) :
         """
         agent_prompt = self.build_prompt()
         conversation = self.conversation_memory.get_context()
+        knowledge_context = self.knowledge_base.retrieve(self.conversation_memory.get_context())
 
         prompt = f"""
         Conversation History:
         -------------------------
         {conversation}
+
+        Knowledge Base:
+        -------------------------
+        {knowledge_context}
         
         Current Task: {agent_prompt}
         """

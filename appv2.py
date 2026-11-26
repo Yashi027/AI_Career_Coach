@@ -13,10 +13,12 @@ from memory.shared_memory import SharedMemory
 from memory.conversation_memory import ConversationMemory
 from services.gemini_service import GeminiService
 from orchestrator.agent_orchestrator import AgentOrchestrator
+from knowledge.knowledge_base import KnowledgeBase
 
 def main() -> None:
     gemini_service = GeminiService()
     conversation_memory = ConversationMemory()
+    knowledge_base = KnowledgeBase("data/career_knowledge.json")
     while(True):
         print("="*30)
         print("Welcome to the AI Career Coach!")
@@ -31,10 +33,10 @@ def main() -> None:
 
         memory.add("user_query", user_query)
 
-        planner = PlannerAgent(memory, gemini_service, conversation_memory)
-        research = ResearchAgent(memory, gemini_service, conversation_memory)
-        writer = WriterAgent(memory, gemini_service, conversation_memory)
-        reviewer = ReviewerAgent(memory, gemini_service, conversation_memory)
+        planner = PlannerAgent(memory, gemini_service, conversation_memory, knowledge_base)
+        research = ResearchAgent(memory, gemini_service, conversation_memory, knowledge_base)
+        writer = WriterAgent(memory, gemini_service, conversation_memory, knowledge_base)
+        reviewer = ReviewerAgent(memory, gemini_service, conversation_memory, knowledge_base)
 
         orchestrator = AgentOrchestrator(memory, conversation_memory)
         orchestrator.register(planner)

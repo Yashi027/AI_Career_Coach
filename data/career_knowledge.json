@@ -1,0 +1,80 @@
+{
+  "Frontend Developer": {
+    "skills": {
+      "core": ["HTML", "CSS", "JavaScript", "TypeScript"],
+      "frameworks": ["React", "Next.js", "Tailwind CSS"],
+      "tools": ["Git", "GitHub", "Webpack"]
+    },
+    "certifications": [
+      "Meta Front-End Developer",
+      "JavaScript Algorithms and Data Structures - freeCodeCamp"
+    ],
+    "projects": [
+      "Responsive Portfolio Website",
+      "E-commerce Frontend",
+      "Task Management Application"
+    ]
+  },
+  "Backend Developer": {
+    "skills": {
+      "languages": ["JavaScript", "Python", "Java"],
+      "frameworks": ["Node.js", "Express.js", "Django"],
+      "database": ["MongoDB", "PostgreSQL", "MySQL"],
+      "tools": ["Docker", "Postman", "Git"]
+    },
+    "certifications": [
+      "Meta Back-End Developer",
+      "AWS Certified Cloud Practitioner"
+    ],
+    "projects": [
+      "REST API System",
+      "Authentication Service",
+      "URL Shortener"
+    ]
+  },
+  "Full Stack Developer": {
+    "skills": {
+      "frontend": ["HTML", "CSS", "JavaScript", "React", "Next.js"],
+      "backend": ["Node.js", "Express.js", "REST APIs"],
+      "database": ["MongoDB", "MySQL"],
+      "tools": ["Git", "Docker", "AWS"]
+    },
+    "certifications": [
+      "Meta Full Stack Developer",
+      "AWS Certified Cloud Practitioner"
+    ],
+    "projects": [
+      "E-commerce Platform",
+      "Job Portal",
+      "Real-Time Chat Application"
+    ]
+  },
+  "AIML Engineer": {
+    "skills": {
+      "languages": ["Python", "SQL"],
+      "libraries": [
+        "NumPy",
+        "Pandas",
+        "Scikit-learn",
+        "TensorFlow",
+        "PyTorch"
+      ],
+      "concepts": [
+        "Machine Learning",
+        "Deep Learning",
+        "NLP",
+        "Statistics"
+      ],
+      "tools": ["Jupyter", "Git", "Docker"]
+    },
+    "certifications": [
+      "IBM AI Engineering Professional Certificate",
+      "TensorFlow Developer Certificate"
+    ],
+    "projects": [
+      "House Price Prediction",
+      "Customer Churn Prediction",
+      "Image Classification System"
+    ]
+  }
+}
